@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Triggering Workflow...</title>
+  <script>
+    // Parse the webhook URL from the query string
+    const params = new URLSearchParams(window.location.search);
+    const rewstUrl = params.get('url');
+
+    if (rewstUrl) {
+      // Call the webhook and try to close the tab
+      fetch(rewstUrl, { method: 'GET', mode: 'no-cors' })
+        .finally(() => {
+          setTimeout(() => {
+            window.close();
+          }, 500);
+        });
+    } else {
+      document.body.innerHTML = "<p>⚠️ No webhook URL provided.</p>";
+    }
+  </script>
+</head>
+<body>
+  <p>Triggering workflow, this tab will close shortly...</p>
+</body>
+</html>
